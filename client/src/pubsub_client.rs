@@ -128,6 +128,7 @@ where
     ) -> Result<T, PubsubClientError> {
         let message = writable_socket.write().unwrap().read_message()?;
         let message_text = &message.into_text().unwrap();
+        println!("read message text {}", message_text);
         let json_msg: Map<String, Value> = serde_json::from_str(message_text)?;
 
         if let Some(Object(params)) = json_msg.get("params") {
